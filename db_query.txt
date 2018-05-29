@@ -1,0 +1,338 @@
+﻿시퀀스 생성시 NOCACHE 입력해야 하는 이유
+http://www.gurubee.net/article/58142
+
+시퀀스 수정, 삭제
+http://uknowapps.egloos.com/1813117
+
+
+-------------------------------------------------------
+
+[회원 등급 테이블]
+/* 회원등급 테이블 */
+CREATE TABLE grade (
+	grade_idx number(2) primary key, /* 회원등급 인덱스 */
+	grade_name VARCHAR2(10) NOT NULL /* 회원등급 이름 */
+);
+
+[회원 등급 더미 데이터]
+insert into grade values(1, '운영자');
+insert into grade values(2, '강사');
+insert into grade values(3, '학생');
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[회원 테이블 시퀀스]
+create sequence user_seq
+start with 0
+minvalue 0
+increment by 1
+NOCYCLE
+NOCACHE;
+
+[회원 테이블]
+CREATE TABLE user_table (
+	user_idx number primary key, /* 회원 인덱스 */
+	user_name VARCHAR2(255) NOT NULL, /* 이름 */
+	user_id VARCHAR2(255) unique, /* 아이디 */
+	user_passwd VARCHAR2(255) NOT NULL, /* 비밀번호 */
+	user_birth DATE NOT NULL, /* 생년월일 */
+	user_email VARCHAR2(255) NOT NULL, /* 이메일 */
+	user_gender number NOT NULL, /* 성별 */
+	user_address VARCHAR2(255), /* 주소 */
+	user_phone VARCHAR2(255) NOT NULL, /* 폰 번호 */
+	grade_idx number NOT NULL references grade(grade_idx) /* 회원등급 인덱스 */
+);
+
+
+/* 회원테이블 수정 사항 */
+alter table user_table add(activate number(1));
+
+/* 이미 올라가 있는 과목 필드에 값 추가하기 */
+update user_table set activate='1';
+
+/* 추가하고나서 컬럼에 제약조건 NOT NULL 추가 */
+alter table user_table modify activate not null;
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[공지사항 게시판 테이블 시퀀스]
+create sequence notice_seq
+start with 0
+minvalue 0
+increment by 1
+NOCYCLE
+NOCACHE;
+
+[공지사항 테이블]
+CREATE TABLE notice (
+	notice_idx number primary key, /* 글번호 */
+	notice_title VARCHAR2(255) NOT NULL, /* 글제목 */
+	notice_content VARCHAR2(255), /* 내용 */
+	notice_date DATE NOT NULL, /* 날짜 */
+	notice_count number NOT NULL, /* 조회수 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[수강후기 게시판 테이블 시퀀스]
+create sequence epilogue_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[수강후기 게시판]
+CREATE TABLE epilogue (
+	epilogue_idx number primary key, /* 글번호 */
+	epilogue_title VARCHAR2(255) NOT NULL, /* 글제목 */
+	epilogue_content VARCHAR2(255), /* 내용 */
+	epilogue_date DATE NOT NULL, /* 날짜 */
+	epilogue_count number NOT NULL, /* 조회수 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[이벤트 게시판 테이블 시퀀스]
+create sequence event_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[이벤트게시판]
+CREATE TABLE event (
+	event_idx number primary key, /* 글번호 */
+	event_title VARCHAR2(255) NOT NULL, /* 글제목 */
+	event_content VARCHAR2(255), /* 내용 */
+	event_date DATE NOT NULL, /* 날짜 */
+	event_count number NOT NULL, /* 조회수 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[질문 게시판 테이블 시퀀스]
+create sequence question_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[질문게시판]
+CREATE TABLE question (
+	quest_idx number primary key, /* 글번호 */
+	quest_title VARCHAR2(255) NOT NULL, /* 글제목 */
+	quest_content VARCHAR2(255), /* 내용 */
+	quest_date DATE NOT NULL, /* 날짜 */
+	quest_count number NOT NULL, /* 조회수 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[1:1문의 게시판 테이블 시퀀스]
+create sequence onequest_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[1:1문의]
+CREATE TABLE onequest (
+	onequest_idx number primary key, /* 글번호 */
+	onequest_title VARCHAR2(255) NOT NULL, /* 글제목 */
+	onequest_content VARCHAR2(255) NOT NULL, /* 내용 */
+	onequest_date DATE NOT NULL, /* 날짜 */
+	onequest_count number NOT NULL, /* 조회수 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[FAQ 게시판 테이블 시퀀스]
+create sequence faq_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[FAQ 게시판]
+CREATE TABLE faq (
+	faq_idx number primary key, /* 글번호 */
+	faq_title VARCHAR2(255) NOT NULL, /* 글제목 */
+	faq_content VARCHAR2(255), /* 내용 */
+	faq_date DATE NOT NULL, /* 날짜 */
+	faq_count number NOT NULL, /* 조회수 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[과목 게시판 테이블 시퀀스]
+create sequence sub_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[과목 테이블]
+CREATE TABLE subject (
+	sub_idx number primary key, /* 과목 인덱스 */
+	sub_name VARCHAR2(255) NOT NULL, /* 과목명 */
+	user_idx number NOT NULL references user_table(user_idx) /* 회원 인덱스 */
+);
+
+[과목 더미 데이터]
+/* 1번 정보처리기사 과목을 가르치시는 선생님 회원 번호는 2번 */
+insert into subject values(1, '정보처리기사', 2);
+/* 2번 전산세무2급 과목을 가르치시는 선생님 회원 번호는 3번 */
+insert into subject values(2, '전산세무2급', 3);
+
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+[전체 동영상 게시판 테이블 시퀀스]
+create sequence video_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[과목1 정보처리기사 시퀀스]
+create sequence subject1_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+[과목2 전산세무2급 시퀀스]
+create sequence subject2_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+/* 동영상 테이블 수정 사항 */
+/* video_content varchar2(255) 추가 
+강의정보를 보여주는 내용부분*/
+
+[동영상 강의 테이블]
+CREATE TABLE video (
+	video_idx integer primary key, /* 동영상 인덱스 */
+	video_name VARCHAR2(255) NOT NULL, /* 동영상 제목 */
+	video_origin_filename VARCHAR2(255) NOT NULL, /* 동영상 원본 파일 이름 */
+	video_save_filename VARCHAR2(255) NOT NULL, /* 동영상 저장 파일 이름 */
+	video_length VARCHAR2(255) NOT NULL, /* 강의 길이 */
+	video_filepath VARCHAR2(255) NOT NULL, /* 파일 경로 */
+	video_filesize integer NOT NULL, /* 파일 사이즈 */
+	video_date DATE NOT NULL, /* 올린 날짜 */
+	video_count integer NOT NULL, /* 조회수 */
+	sub_idx integer NOT NULL references subject(sub_idx), /* 과목 인덱스 */
+	group_idx integer NOT NULL /* 과목별_인덱스(그룹 인덱스) */
+);
+
+-------------------------------------------------------
+
+/* 동영상 강의 테이블에 내용 부분 추가 */
+alter table video add(video_content varchar(255));
+
+/* 이미 올라가 있는 비디오 테이블 필드에 값 다 추가하기 */
+update video set video_content='test';
+
+/* 추가하고나서 컬럼에 제약조건 NOT NULL 추가 */
+alter table video modify video_content not null;
+
+-------------------------------------------------------
+
+/* subject 강의 가격 정보 추가 */
+alter table subject add(price number);
+
+/* 이미 올라가 있는 과목 필드에 값 추가하기 */
+update subject set price='120000' where sub_idx=1;
+update subject set price='130000' where sub_idx=2;
+
+/* 추가하고나서 컬럼에 제약조건 NOT NULL 추가 */
+alter table subject modify price not null;
+
+-------------------------------------------------------
+
+[결제내역 테이블 시퀀스]
+create sequence pay_seq
+start with 0
+minvalue 0
+increment by 1
+nocycle
+nocache;
+
+/* 결제내역 테이블 */
+CREATE TABLE payment (
+	pay_idx INTEGER primary key, /* 결제 인덱스 */
+	pay_date DATE not null, /* 결제 날짜 */
+	pay_charge INTEGER not null, /* 결제 금액 */
+	pay_method VARCHAR2(255) not null, /* 결제 수단 */
+	sub_idx INTEGER not null references subject(sub_idx), /* 과목 인덱스 */
+	user_idx INTEGER not null references user_table(user_idx)/* 회원 인덱스 */
+);
+
+-------------------------------------------------------
+
+[동영상 현재 시간 테이블 시퀀스]
+create sequence currenttime_seq
+start with 0
+minvalue 0
+increment by 1
+NOCYCLE
+NOCACHE;
+
+[동영상 현재 시간 테이블]
+CREATE TABLE video_currenttime (
+	currenttime_idx NUMBER primary key, /*현재위치 인덱스*/
+	user_idx number NOT NULL, /* 회원 인덱스 */
+	video_currenttime number, /* 동영상 위치(시:분:초) */
+	video_idx number NOT NULL /* 동영상 인덱스 */
+);
