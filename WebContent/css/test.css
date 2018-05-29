@@ -1,0 +1,213 @@
+@CHARSET "UTF-8";
+
+.header {
+	/* border: 1px solid black; */
+	height: 150px;
+}
+
+.body {
+	/* border: 1px solid black; */
+	/* height: 900px; */
+}
+
+.footer {
+	/* display: block; */
+	margin-top: 20px;
+	border: 2px solid #e7e7e7;
+	color: #777777;
+	background-color: #f5f5f5;
+}
+
+.footer1 {
+	position: initial;
+	text-align: center;
+	margin-top: 5%;
+}
+
+.footer2 {
+	position: initial;
+	margin-top: 2%;
+	margin-bottom: 1%;
+}
+
+.bodyfooter1 {
+	margin-top: 20px;
+	height: 190px;
+	border-radius: 7px;
+	border: 3px dashed #cecece;
+	padding: 10px 20px 10px 20px;
+}
+
+.bodyfooter2 {
+	margin-top: 20px;
+	height: 190px;
+	background-color: white;
+	border-radius: 7px;
+	border-style: outset;
+	padding: 10px 20px 10px 50px;
+}
+
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+	width: 100%;
+	margin: auto;
+}
+
+/* Bootstrap 'navbar' 밑에 자동으로 붙는 마진값 없애주기 */
+.navbar {
+	/* margin-bottom: 0px; */
+	
+}
+
+/* Bootstrap 'row' 양쪽에 붙는 마진값 없애주기 */
+.row {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+a:LINK, a:VISITED {
+	/* a 링크 영역을 블록으로 지정 */
+	/* display: block; */
+	text-decoration: none;
+}
+
+.back>a:LINK, .back>a:VISITED {
+	display: block;
+}
+
+.nav>li:hover {
+	background-color: #d0dfef;
+}
+
+.my {
+	background: #777777; 
+	color:white; 
+	border-radius: 15px;  
+	padding-left: 5px; 
+	padding-right: 5px; 
+}
+
+.my:hover {
+	background: #777777; 
+	color:white; 
+	border-radius: 15px;  
+	padding-left: 5px; 
+	padding-right: 5px; 
+}
+
+.right {
+	text-align: right;
+}
+
+.center {
+	text-align: center;
+}
+
+.flip3D_1>.front p {
+	font-size: 20px;
+}
+
+.flip3D_1>.back p {
+	font-size: 20px;
+}
+
+.flip3D_2>.front p {
+	font-size: 20px;
+}
+
+.flip3D_2>.back p {
+	font-size: 20px;
+}
+
+.flip3D_1 {
+	width: 250px;
+	height: 180px;
+	float: left;
+	margin: 10px;
+	text-align: center;
+}
+
+.flip3D_2 {
+	width: 250px;
+	height: 180px;
+	float: left;
+	margin: 10px;
+	text-align: center;
+}
+
+.flip3D_1>.front {
+	position: absolute;
+	transform: perspective(600px) rotateY(0deg);
+	color: white;
+	background: #d0dfef;
+	width: 250px;
+	height: 180px;
+	text-align: center;
+	border-radius: 7px;
+	backface-visibility: hidden;
+	transition: -webkit-transform .3s linear 0s;
+	transition: transform .3s linear 0s;
+}
+
+.flip3D_1>.back {
+	position: absolute;
+	transform: perspective(600px) rotateY(180deg);
+	background: #727FAB;
+	width: 250px;
+	height: 180px;
+	text-align: center;
+	border-radius: 7px;
+	backface-visibility: hidden;
+	transition: -webkit-transform .3s linear 0s;
+	transition: transform .3s linear 0s;
+}
+
+.flip3D_1:hover>.front {
+	transform: perspective(600px) rotateY(-180deg);
+}
+
+.flip3D_1:hover>.back {
+	transform: perspective(600px) rotateY(0deg);
+}
+
+.flip3D_1>.front p {
+	font-size: 20px;
+}
+
+.flip3D_1>.back p {
+	font-size: 20px;
+}
+
+.flip3D_2>.front {
+	position: absolute;
+	transform: perspective(600px) rotateY(0deg);
+	color: white;
+	background: #cecece;
+	width: 250px;
+	height: 180px;
+	text-align: center;
+	border-radius: 7px;
+	backface-visibility: hidden;
+	transition: -webkit-transform .3s linear 0s;
+	transition: transform .3s linear 0s;
+}
+
+.flip3D_2>.back {
+	position: absolute;
+	transform: perspective(600px) rotateY(180deg);
+	background: #727FAB;
+	width: 250px;
+	height: 180px;
+	text-align: center;
+	border-radius: 7px;
+	backface-visibility: hidden;
+	transition: -webkit-transform .3s linear 0s;
+	transition: transform .3s linear 0s;
+}
+
+.flip3D_2:hover>.front {
+	transform: perspective(600px) rotateY(-180deg);
+}
+
+.flip3D_2:hover>.back {
+	transform: perspective(600px) rotateY(0deg);
+}
